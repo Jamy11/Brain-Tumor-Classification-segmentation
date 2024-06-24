@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import ImageClassifier from "./components/ImageClassifier";
 
 export default function Home() {
   const [file, setFile] = useState(null);
@@ -31,6 +32,7 @@ export default function Home() {
         <button type="submit">Upload</button>
       </form>
       {result && <div>Prediction: {result}</div>}
+      <ImageClassifier />
     </div>
   );
 }

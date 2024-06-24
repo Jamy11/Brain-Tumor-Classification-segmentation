@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.imageContainer {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin: 20px 0;
+}
+
+.classifyButton {
+    padding: 10px 20px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.result {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.result h2 {
+    text-align: left;
+}
+
+.resultItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eaeaea;
+}
+
+@media (max-width: 600px) {
+    .resultItem {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
