@@ -26,12 +26,12 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Brain Tumor Detection</h1>
+      {/* <h1>Brain Tumor Detection</h1>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <input type="file" name="file" onChange={handleFileChange} />
         <button type="submit">Upload</button>
       </form>
-      {result && <div>Prediction: {result}</div>}
+      {result && <div>Prediction: {result}</div>} */}
       <ImageClassifier />
     </div>
   );
