@@ -1,6 +1,5 @@
-
-import React, { useState } from 'react';
-import '../styles//Bootstrap.css'; // Make sure to import your CSS file
+import React, { useState } from "react";
+import "../app/styles//Bootstrap.css"; // Make sure to import your CSS file
 
 export default function ImageSelectorBox() {
   const [result, setResult] = useState(null);
@@ -11,14 +10,14 @@ export default function ImageSelectorBox() {
   const handleClassify = () => {
     // Dummy data to mimic classification result
     setResult({
-      label: 'golden retriever',
+      label: "golden retriever",
       confidence: 80.59,
       otherLabels: [
-        { label: 'Labrador retriever', confidence: 2.27 },
-        { label: 'tennis ball', confidence: 0.30 },
-        { label: 'kuvasz', confidence: 0.22 },
-        { label: 'cocker spaniel', confidence: 0.20 }
-      ]
+        { label: "Labrador retriever", confidence: 2.27 },
+        { label: "tennis ball", confidence: 0.3 },
+        { label: "kuvasz", confidence: 0.22 },
+        { label: "cocker spaniel", confidence: 0.2 },
+      ],
     });
     setIsClassified(true);
   };
@@ -58,17 +57,30 @@ export default function ImageSelectorBox() {
             {imageSrc ? (
               <img src={imageSrc} alt="Uploaded" className="uploadedImage" />
             ) : (
-              <p className="uploadPrompt">Please upload an image to classify.</p>
+              <p className="uploadPrompt">
+                Please upload an image to classify.
+              </p>
             )}
           </div>
-          <input type="file" accept="image/*" onChange={handleImageUpload} className="uploadInput" />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="uploadInput"
+          />
           {imageSrc && !isClassified && (
-            <button onClick={handleClassify} className="classifyButton">Classify</button>
+            <button onClick={handleClassify} className="classifyButton">
+              Classify
+            </button>
           )}
           {imageSrc && isClassified && (
             <div className="buttonGroup">
-              <button onClick={handleDeleteImage} className="deleteButton">Delete Image</button>
-              <button onClick={handleSegmentation} className="segmentButton">Image Segmentation</button>
+              <button onClick={handleDeleteImage} className="deleteButton">
+                Delete Image
+              </button>
+              <button onClick={handleSegmentation} className="segmentButton">
+                Image Segmentation
+              </button>
             </div>
           )}
         </div>
@@ -91,7 +103,11 @@ export default function ImageSelectorBox() {
           {segmentedSrc && (
             <div className="segmentedImageContainer">
               <h2>Segmented Image</h2>
-              <img src={segmentedSrc} alt="Segmented" className="segmentedImage" />
+              <img
+                src={segmentedSrc}
+                alt="Segmented"
+                className="segmentedImage"
+              />
             </div>
           )}
         </div>
