@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import "../app/styles//Bootstrap.css"; // Make sure to import your CSS file
 import { setFile, predictTumor } from "@/redux/features/prediction-slice";
 import { useDispatch, useSelector } from "react-redux";
+import ImageClassifier from "./ImageClassifier";
+import ImageSegmentation from "./ImageSegmentation";
 
-export default function ImageSelectorBox() {
+export default function ImageHomePage() {
   // redux started
   // const dispatch = useDispatch();
   // const imageSrc = useSelector((state) => state.prediction.imageSrc);
@@ -80,7 +82,7 @@ export default function ImageSelectorBox() {
               Classify
             </button>
           )}
-          {imageSrc && isClassified && (
+          {/* {imageSrc && isClassified && (
             <div className="buttonGroup">
               <button onClick={handleDeleteImage} className="deleteButton">
                 Delete Image
@@ -89,34 +91,11 @@ export default function ImageSelectorBox() {
                 Image Segmentation
               </button>
             </div>
-          )}
+          )} */}
         </div>
-        <div className="resultSection">
-          {result && (
-            <div className="result">
-              <h2>Result</h2>
-              <div className="resultItem">
-                <span>{result.label}</span>
-                <span>{result.confidence}%</span>
-              </div>
-              {result.otherLabels.map((item, index) => (
-                <div key={index} className="resultItem">
-                  <span>{item.label}</span>
-                  <span>{item.confidence}%</span>
-                </div>
-              ))}
-            </div>
-          )}
-          {segmentedSrc && (
-            <div className="segmentedImageContainer">
-              <h2>Segmented Image</h2>
-              <img
-                src={segmentedSrc}
-                alt="Segmented"
-                className="segmentedImage"
-              />
-            </div>
-          )}
+        <div style={{ margin: "5%" }}>
+          <ImageClassifier />
+          <ImageSegmentation />
         </div>
       </div>
     </div>
