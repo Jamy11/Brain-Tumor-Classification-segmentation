@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import "../app/styles//Bootstrap.css"; // Make sure to import your CSS file
+import { setFile, predictTumor } from "@/redux/features/prediction-slice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ImageSelectorBox() {
+  // redux started
+  // const dispatch = useDispatch();
+  // const imageSrc = useSelector((state) => state.prediction.imageSrc);
+  // const mainResult = useSelector((state) => state.prediction.mainResult);
+  // const status = useSelector((state) => state.prediction.status);
+  // const error = useSelector((state) => state.prediction.error);
   const [result, setResult] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [segmentedSrc, setSegmentedSrc] = useState(null);
@@ -35,7 +43,6 @@ export default function ImageSelectorBox() {
       reader.readAsDataURL(file);
     }
   };
-
   const handleDeleteImage = () => {
     setImageSrc(null);
     setResult(null);

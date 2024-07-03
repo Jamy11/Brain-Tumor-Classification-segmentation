@@ -2,8 +2,8 @@ import axiosInstance from "@/axios/axiosInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
-  file: null,
-  result: "",
+  imageSrc: null,
+  mainResult: "",
   status: "idle",
   error: null,
 };
@@ -27,7 +27,7 @@ const predictionSlice = createSlice({
   name: "prediction",
   initialState: initialState,
   reducers: {
-    setFile: (state, action) => {
+    setImageSrc: (state, action) => {
       state.file = action.payload;
     },
   },
@@ -47,6 +47,6 @@ const predictionSlice = createSlice({
   },
 });
 
-export const { setFile } = predictionSlice.actions;
+export const { setImageSrc } = predictionSlice.actions;
 
 export default predictionSlice.reducer;
