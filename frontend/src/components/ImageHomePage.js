@@ -1,53 +1,60 @@
 import React, { useState } from "react";
 import "../app/styles//Bootstrap.css"; // Make sure to import your CSS file
-import { setFile, predictTumor } from "@/redux/features/prediction-slice";
+import { setImageSrc, predictTumor } from "@/redux/features/prediction-slice";
 import { useDispatch, useSelector } from "react-redux";
 import ImageClassifier from "./ImageClassifier";
 import ImageSegmentation from "./ImageSegmentation";
 
 export default function ImageHomePage() {
   // redux started
-  // const dispatch = useDispatch();
-  // const imageSrc = useSelector((state) => state.prediction.imageSrc);
-  // const mainResult = useSelector((state) => state.prediction.mainResult);
-  // const status = useSelector((state) => state.prediction.status);
-  // const error = useSelector((state) => state.prediction.error);
+  const dispatch = useDispatch();
+  const imageSrc = useSelector((state) => state.prediction.imageSrc);
+  const mainResult = useSelector((state) => state.prediction.mainResult);
+  const status = useSelector((state) => state.prediction.status);
+  const error = useSelector((state) => state.prediction.error);
   const [result, setResult] = useState(null);
-  const [imageSrc, setImageSrc] = useState(null);
+  // const [imageSrc, setImageSrc] = useState(null);
   const [segmentedSrc, setSegmentedSrc] = useState(null);
   const [isClassified, setIsClassified] = useState(false);
+  const [file, setFile] = useState(null);
 
   const handleClassify = () => {
     // Dummy data to mimic classification result
-    setResult({
-      label: "golden retriever",
-      confidence: 80.59,
-      otherLabels: [
-        { label: "Labrador retriever", confidence: 2.27 },
-        { label: "tennis ball", confidence: 0.3 },
-        { label: "kuvasz", confidence: 0.22 },
-        { label: "cocker spaniel", confidence: 0.2 },
-      ],
-    });
-    setIsClassified(true);
+    // setResult({
+    //   label: "golden retriever",
+    //   confidence: 80.59,
+    //   otherLabels: [{ label: "Labrador retriever", confidence: 2.27 }],
+    // });
+    // setIsClassified(true);
+    // print(file);
+    dispatch(predictTumor(file));
   };
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
+    if (!file) {
+      console.error("No file selected");
+      return;
+    }
+
     const reader = new FileReader();
+    console.log(reader);
     reader.onloadend = () => {
-      setImageSrc(reader.result);
-      setResult(null); // Clear previous result when a new image is uploaded
+      dispatch(setImageSrc(reader.result));
+      setFile(event.target.files[0]);
       setSegmentedSrc(null); // Clear previous segmented image
       setIsClassified(false);
     };
-    if (file) {
-      reader.readAsDataURL(file);
-    }
+
+    reader.onerror = (error) => {
+      console.error("Error reading file:", error);
+    };
+
+    reader.readAsDataURL(file);
   };
   const handleDeleteImage = () => {
-    setImageSrc(null);
-    setResult(null);
+    dispatch(setImageSrc(null));
+    // setResult(null);
     setSegmentedSrc(null);
     setIsClassified(false);
   };
@@ -82,16 +89,16 @@ export default function ImageHomePage() {
               Classify
             </button>
           )}
-          {/* {imageSrc && isClassified && (
+          {imageSrc && isClassified && (
             <div className="buttonGroup">
               <button onClick={handleDeleteImage} className="deleteButton">
                 Delete Image
               </button>
-              <button onClick={handleSegmentation} className="segmentButton">
+              {/* <button onClick={handleSegmentation} className="segmentButton">
                 Image Segmentation
-              </button>
+              </button> */}
             </div>
-          )} */}
+          )}
         </div>
         <div style={{ margin: "5%" }}>
           <ImageClassifier />

@@ -14,7 +14,7 @@ export const predictTumor = createAsyncThunk(
     const formData = new FormData();
     formData.append("file", file);
     try {
-      const response = await axiosInstance.post("/api/predict/", formData);
+      const response = await axiosInstance.post("/predict/", formData);
       return response.data.prediction;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -28,7 +28,7 @@ const predictionSlice = createSlice({
   initialState: initialState,
   reducers: {
     setImageSrc: (state, action) => {
-      state.file = action.payload;
+      state.imageSrc = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -38,7 +38,7 @@ const predictionSlice = createSlice({
       })
       .addCase(predictTumor.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.result = action.payload;
+        state.mainResult = action.payload;
       })
       .addCase(predictTumor.rejected, (state, action) => {
         state.status = "failed";
