@@ -7,6 +7,7 @@ const initialState = {
   error: null,
 };
 
+// Async thunk to handle image segmentation
 export const segmentImage = createAsyncThunk(
   "segmentation/segmentImage",
   async (file, thunkAPI) => {
@@ -14,18 +15,15 @@ export const segmentImage = createAsyncThunk(
     formData.append("file", file);
 
     try {
-      const response = await axiosInstance.post("/segment/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      return response.data.segmented_image;
+      const response = await axiosInstance.post("/segmentation/", formData);
+      return response.data.segmented_image; // Assuming backend returns segmented_image
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
 
+// Create slice for segmentation state management
 const segmentationSlice = createSlice({
   name: "segmentation",
   initialState,
@@ -33,15 +31,15 @@ const segmentationSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(segmentImage.pending, (state) => {
-        state.status = "loading";
+        state.status = "loading"; // Set status to loading during async operation
       })
       .addCase(segmentImage.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.segmentedImage = action.payload;
+        state.status = "succeeded"; // Async operation succeeded
+        state.segmentedImage = action.payload; // Store segmented image data in state
       })
       .addCase(segmentImage.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
+        state.status = "failed"; // Async operation failed
+        state.error = action.payload; // Store error message in state
       });
   },
 });

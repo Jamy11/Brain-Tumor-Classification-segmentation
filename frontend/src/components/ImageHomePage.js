@@ -4,6 +4,7 @@ import { setImageSrc, predictTumor } from "@/redux/features/prediction-slice";
 import { useDispatch, useSelector } from "react-redux";
 import ImageClassifier from "./ImageClassifier";
 import ImageSegmentation from "./ImageSegmentation";
+import { segmentImage } from "@/redux/features/segmentation-slice";
 
 export default function ImageHomePage() {
   // redux started
@@ -17,6 +18,10 @@ export default function ImageHomePage() {
   const [segmentedSrc, setSegmentedSrc] = useState(null);
   const [isClassified, setIsClassified] = useState(false);
   const [file, setFile] = useState(null);
+
+  const { segmentedImage } = useSelector((state) => state.segmentation);
+  const segmentationStatus = useSelector((state) => state.segmentation.status);
+  const segmentationError = useSelector((state) => state.segmentation.error);
 
   const handleClassify = () => {
     // Dummy data to mimic classification result
@@ -36,9 +41,7 @@ export default function ImageHomePage() {
       console.error("No file selected");
       return;
     }
-
     const reader = new FileReader();
-    console.log(reader);
     reader.onloadend = () => {
       dispatch(setImageSrc(reader.result));
       setFile(event.target.files[0]);
@@ -52,6 +55,7 @@ export default function ImageHomePage() {
 
     reader.readAsDataURL(file);
   };
+
   const handleDeleteImage = () => {
     dispatch(setImageSrc(null));
     // setResult(null);
@@ -61,9 +65,41 @@ export default function ImageHomePage() {
 
   const handleSegmentation = () => {
     // Dummy segmented image URL
-    setSegmentedSrc(imageSrc);
+    // setSegmentedSrc(imageSrc);
+    if (file) {
+      dispatch(segmentImage(file));
+    }
   };
 
+  const renderSegmentedImage = (segmentedImage) => {
+    if (segmentedImage) {
+      const width = 224;
+      const height = 224;
+      const canvasRef = React.createRef();
+
+      const drawImage = () => {
+        if (canvasRef.current) {
+          const ctx = canvasRef.current.getContext("2d");
+          const imageData = ctx.createImageData(width, height);
+          for (let i = 0; i < segmentedImage.length; i++) {
+            const value = segmentedImage[i];
+            imageData.data[i * 4] = value; // R
+            imageData.data[i * 4 + 1] = value; // G
+            imageData.data[i * 4 + 2] = value; // B
+            imageData.data[i * 4 + 3] = 255; // A
+          }
+          ctx.putImageData(imageData, 0, 0);
+        }
+      };
+
+      // React.useEffect(() => {
+      //   drawImage();
+      // }, [segmentedImage]);
+
+      return <canvas ref={canvasRef} width={width} height={height}></canvas>;
+    }
+    return null;
+  };
   return (
     <div className="container">
       <h1>Brain Tumor Classification And Segmentation</h1>
@@ -89,20 +125,27 @@ export default function ImageHomePage() {
               Classify
             </button>
           )}
-          {imageSrc && isClassified && (
+          {imageSrc && (
             <div className="buttonGroup">
               <button onClick={handleDeleteImage} className="deleteButton">
                 Delete Image
               </button>
-              {/* <button onClick={handleSegmentation} className="segmentButton">
+              <button onClick={handleSegmentation} className="segmentButton">
                 Image Segmentation
-              </button> */}
+              </button>
             </div>
           )}
         </div>
         <div style={{ margin: "5%" }}>
+          {segmentationStatus === "succeeded" && segmentedImage && (
+            <img
+              src={`data:image/png;base64,${segmentedImage}`}
+              alt="Segmented Mask"
+              style={{ width: "224px", height: "224px" }}
+            />
+          )}
           <ImageClassifier />
-          <ImageSegmentation />
+          {/* <ImageSegmentation /> */}
         </div>
       </div>
     </div>
