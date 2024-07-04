@@ -37,5 +37,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('prediction.urls')),  # Include the URLs from the prediction app
+    path('api/', include('segmentation.urls')),  # Include the URLs from the prediction app
 ]
 
