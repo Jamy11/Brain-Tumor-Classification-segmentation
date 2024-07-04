@@ -19,7 +19,9 @@ export default function ImageHomePage() {
   const [isClassified, setIsClassified] = useState(false);
   const [file, setFile] = useState(null);
 
-  const { segmentedImage } = useSelector((state) => state.segmentation);
+  const segmentedImage = useSelector(
+    (state) => state.segmentation.segmentedImage
+  );
   const segmentationStatus = useSelector((state) => state.segmentation.status);
   const segmentationError = useSelector((state) => state.segmentation.error);
 
@@ -71,35 +73,6 @@ export default function ImageHomePage() {
     }
   };
 
-  const renderSegmentedImage = (segmentedImage) => {
-    if (segmentedImage) {
-      const width = 224;
-      const height = 224;
-      const canvasRef = React.createRef();
-
-      const drawImage = () => {
-        if (canvasRef.current) {
-          const ctx = canvasRef.current.getContext("2d");
-          const imageData = ctx.createImageData(width, height);
-          for (let i = 0; i < segmentedImage.length; i++) {
-            const value = segmentedImage[i];
-            imageData.data[i * 4] = value; // R
-            imageData.data[i * 4 + 1] = value; // G
-            imageData.data[i * 4 + 2] = value; // B
-            imageData.data[i * 4 + 3] = 255; // A
-          }
-          ctx.putImageData(imageData, 0, 0);
-        }
-      };
-
-      // React.useEffect(() => {
-      //   drawImage();
-      // }, [segmentedImage]);
-
-      return <canvas ref={canvasRef} width={width} height={height}></canvas>;
-    }
-    return null;
-  };
   return (
     <div className="container">
       <h1>Brain Tumor Classification And Segmentation</h1>
@@ -144,7 +117,7 @@ export default function ImageHomePage() {
               style={{ width: "224px", height: "224px" }}
             />
           )}
-          <ImageClassifier />
+          {/* <ImageClassifier /> */}
           {/* <ImageSegmentation /> */}
         </div>
       </div>

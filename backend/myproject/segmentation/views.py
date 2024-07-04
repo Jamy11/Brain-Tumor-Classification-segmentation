@@ -147,7 +147,7 @@ class SegmentationView(APIView):
             encoded_image_base64 = base64.b64encode(encoded_image).decode('utf-8')
 
             # Respond with the base64-encoded image data
-            return Response({"segmentation_result": encoded_image_base64}, status=status.HTTP_200_OK)
+            return Response({"segmented_image": encoded_image_base64}, status=status.HTTP_200_OK)
             # return Response({"segmentation_result": output_path}, status=status.HTTP_200_OK)
 
         except Exception as e:
