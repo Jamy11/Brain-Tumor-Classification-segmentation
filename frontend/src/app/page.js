@@ -1,41 +1,47 @@
 "use client";
-import { useState } from "react";
-import ImageClassifier from "../components/ImageClassifier";
-import ImageHomePage from "@/components/ImageHomePage";
+import ImageUpload from "@/components/Image/ImageUpload";
+import { Container } from "@chakra-ui/react";
+import { setImageSrc } from "@/redux/features/prediction-slice";
+import { useDispatch, useSelector } from "react-redux";
+import ImageContainer from "@/components/Image/ImageContainer";
+import { setImageFile } from "@/redux/features/file-slice";
 
 export default function Home() {
-  const [file, setFile] = useState(null);
-  const [result, setResult] = useState("");
+  const dispatch = useDispatch();
+  const { imageFile } = useSelector((state) => state.file);
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+  const handleImageUpload = (event, setFile) => {
+    const file = event.target.files[0];
+    if (!file) {
+      console.error("No file selected");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      dispatch(setImageSrc(reader.result));
+      dispatch(setImageFile(event.target.files[0]));
+      // setSegmentedSrc(null); // Clear previous segmented image
+      // setIsClassified(false);
+    };
+
+    reader.onerror = (error) => {
+      console.error("Error reading file:", error);
+    };
+
+    reader.readAsDataURL(file);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const response = await fetch("http://localhost:8000/api/predict/", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await response.json();
-    setResult(data.prediction);
-  };
-
+  console.log(imageFile);
   return (
-    <div>
-      {/* <h1>Brain Tumor Detection</h1>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <input type="file" name="file" onChange={handleFileChange} />
-        <button type="submit">Upload</button>
-      </form>
-      {result && <div>Prediction: {result}</div>} */}
-      {/* <ImageClassifier />
-       */}
-      <ImageHomePage />
-    </div>
+    <Container>
+      {imageFile === null && (
+        <ImageUpload
+          handleImageUpload={handleImageUpload}
+          setImageFile={setImageFile}
+        />
+      )}
+
+      {imageFile && <ImageContainer />}
+    </Container>
   );
 }

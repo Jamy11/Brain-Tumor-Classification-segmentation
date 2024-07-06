@@ -8,12 +8,23 @@ import {
   Divider,
   ButtonGroup,
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@chakra-ui/react";
 import { Container } from "postcss";
 import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
+import { segmentImage } from "@/redux/features/segmentation-slice";
+
 const MyImage = () => {
+  const dispatch = useDispatch();
+  const { imageFile } = useSelector((state) => state.file);
+
   const imageSrc = useSelector((state) => state.prediction.imageSrc);
+
+  const handleSegmentation = () => {
+    if (imageFile) {
+      dispatch(segmentImage(imageFile));
+    }
+  };
 
   return (
     <div>
@@ -31,7 +42,11 @@ const MyImage = () => {
             <Button variant="solid" colorScheme="blue">
               Image Classification
             </Button>
-            <Button variant="solid" colorScheme="green">
+            <Button
+              variant="solid"
+              colorScheme="green"
+              onClick={handleSegmentation}
+            >
               Image Segmentation
             </Button>
           </ButtonGroup>
