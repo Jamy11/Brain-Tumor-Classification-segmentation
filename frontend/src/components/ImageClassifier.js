@@ -1,5 +1,3 @@
-import { Box, Heading, Progress, Text, VStack } from "@chakra-ui/react";
-
 const ImageClassifier = () => {
   const progressData = [
     { label: "Class 1", value: 60, color: "blue-500" },

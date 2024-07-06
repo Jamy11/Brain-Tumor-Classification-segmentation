@@ -1,9 +1,5 @@
 import React from "react";
-import { Image, Divider, ButtonGroup } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "@chakra-ui/react";
-import { Container } from "postcss";
-import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
 import { segmentImage } from "@/redux/features/segmentation-slice";
 
 const MyImage = () => {

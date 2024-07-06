@@ -1,6 +1,4 @@
 "use client";
-import ImageUpload from "@/components/Image/ImageUpload";
-import { Container } from "@chakra-ui/react";
 import { setImageSrc } from "@/redux/features/prediction-slice";
 import { useDispatch, useSelector } from "react-redux";
 import ImageContainer from "@/components/Image/ImageContainer";
