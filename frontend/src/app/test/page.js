@@ -5,11 +5,13 @@ import { Center, Square, Circle } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 // import { handleImageUpload } from "@/utils/utils";
 import { setImageSrc } from "@/redux/features/prediction-slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ImageContainer from "@/components/Image/ImageContainer";
+import { setImageFile } from "@/redux/features/file-slice";
+
 const page = () => {
   const dispatch = useDispatch();
-  const [imageFile, setImageFile] = useState(null);
+  const { imageFile } = useSelector((state) => state.file);
 
   const handleImageUpload = (event, setFile) => {
     const file = event.target.files[0];
@@ -20,7 +22,7 @@ const page = () => {
     const reader = new FileReader();
     reader.onloadend = () => {
       dispatch(setImageSrc(reader.result));
-      setImageFile(event.target.files[0]);
+      dispatch(setImageFile(event.target.files[0]));
       // setSegmentedSrc(null); // Clear previous segmented image
       // setIsClassified(false);
     };
