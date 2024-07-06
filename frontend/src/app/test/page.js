@@ -1,31 +1,49 @@
 "use client";
-import { Link } from "@chakra-ui/next-js";
-import { CloseButton } from "@chakra-ui/react";
-import {
-  Skeleton,
-  SkeletonCircle,
-  SkeletonText,
-  Stack,
-} from "@chakra-ui/react";
+import ImageUpload from "@/components/Image/ImageUpload";
+import { Container } from "@chakra-ui/react";
+import { Center, Square, Circle } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+// import { handleImageUpload } from "@/utils/utils";
+import { setImageSrc } from "@/redux/features/prediction-slice";
+import { useDispatch } from "react-redux";
+import ImageContainer from "@/components/Image/ImageContainer";
 const page = () => {
-  return (
-    // <Link href="/about" color="blue.400" _hover={{ color: "blue.500" }}>
-    //   About
-    // </Link>
+  const dispatch = useDispatch();
+  const [imageFile, setImageFile] = useState(null);
 
-    <>
-      saas
-      <Link href="/about" color="blue.400" _hover={{ color: "blue.500" }}>
-        About
-      </Link>
-      <CloseButton />
-      asdasdsad
-      <Stack>
-        <Skeleton height="20px" />
-        <Skeleton height="20px" />
-        <Skeleton height="20px" />
-      </Stack>
-    </>
+  const handleImageUpload = (event, setFile) => {
+    const file = event.target.files[0];
+    if (!file) {
+      console.error("No file selected");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      dispatch(setImageSrc(reader.result));
+      setImageFile(event.target.files[0]);
+      // setSegmentedSrc(null); // Clear previous segmented image
+      // setIsClassified(false);
+    };
+
+    reader.onerror = (error) => {
+      console.error("Error reading file:", error);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  console.log(imageFile);
+  return (
+    <Container>
+      {imageFile === null && (
+        <ImageUpload
+          handleImageUpload={handleImageUpload}
+          setImageFile={setImageFile}
+        />
+      )}
+
+      {imageFile && <ImageContainer />}
+    </Container>
   );
 };
 
