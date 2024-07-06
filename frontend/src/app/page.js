@@ -33,15 +33,17 @@ export default function Home() {
 
   console.log(imageFile);
   return (
-    <Container>
-      {imageFile === null && (
-        <ImageUpload
-          handleImageUpload={handleImageUpload}
-          setImageFile={setImageFile}
-        />
-      )}
-
-      {imageFile && <ImageContainer />}
-    </Container>
+    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+      <div className="container mx-auto px-4">
+        <div
+          // style={{ flexDirection: "row !important" }}
+          className="flex justify-center"
+        >
+          <div className="flex flex-row items-center space-y-4">
+            <ImageContainer />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

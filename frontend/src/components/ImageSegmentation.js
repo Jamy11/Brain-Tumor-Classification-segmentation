@@ -23,7 +23,7 @@ const ImageSegmentation = () => {
 
   return (
     <div className="">
-      {segmentedImage && (
+      {/* {segmentedImage && (
         <>
           {segmentationStatus === "idel" ? (
             <> {loadingUi()}</>
@@ -44,7 +44,22 @@ const ImageSegmentation = () => {
             </Center>
           )}
         </>
-      )}
+      )} */}
+
+      <Center height="100vh">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="100%"
+        >
+          <Image
+            src={"https://bit.ly/dan-abramov"}
+            alt="Image Segmentation"
+            boxSize="sm"
+          />
+        </Box>
+      </Center>
     </div>
   );
 };
