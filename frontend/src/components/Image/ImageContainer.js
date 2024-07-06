@@ -1,5 +1,6 @@
 import React from "react";
 import MyImage from "./MyImage";
+
 const ImageContainer = () => {
   return (
     <div>
