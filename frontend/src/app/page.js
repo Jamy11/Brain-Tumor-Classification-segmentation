@@ -1,8 +1,8 @@
 "use client";
-import { setImageSrc } from "@/redux/features/prediction-slice";
+// import { setImageSrc } from "@/redux/features/prediction-slice";
 import { useDispatch, useSelector } from "react-redux";
 import ImageContainer from "@/components/Image/ImageContainer";
-import { setImageFile } from "@/redux/features/file-slice";
+import { setImageFile, setImageSrc } from "@/redux/features/file-slice";
 import ImageUpload from "@/components/Image/ImageUpload";
 
 export default function Home() {
@@ -19,8 +19,6 @@ export default function Home() {
     reader.onloadend = () => {
       dispatch(setImageSrc(reader.result));
       dispatch(setImageFile(event.target.files[0]));
-      // setSegmentedSrc(null); // Clear previous segmented image
-      // setIsClassified(false);
     };
 
     reader.onerror = (error) => {

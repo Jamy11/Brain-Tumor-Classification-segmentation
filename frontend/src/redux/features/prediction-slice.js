@@ -2,7 +2,6 @@ import axiosInstance from "@/axios/axiosInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
-  imageSrc: null,
   mainResult: "",
   percentages: "",
   status: "idle",
@@ -28,9 +27,9 @@ const predictionSlice = createSlice({
   name: "prediction",
   initialState: initialState,
   reducers: {
-    setImageSrc: (state, action) => {
-      state.imageSrc = action.payload;
-    },
+    // setImageSrc: (state, action) => {
+    //   state.imageSrc = action.payload;
+    // },
   },
   extraReducers: (builder) => {
     builder

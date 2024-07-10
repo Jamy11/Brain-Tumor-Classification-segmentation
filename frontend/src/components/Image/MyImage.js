@@ -7,7 +7,7 @@ const MyImage = () => {
   const dispatch = useDispatch();
   const { imageFile } = useSelector((state) => state.file);
 
-  const imageSrc = useSelector((state) => state.prediction.imageSrc);
+  const imageSrc = useSelector((state) => state.file.imageSrc);
 
   const handleSegmentation = () => {
     if (imageFile) {
