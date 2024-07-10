@@ -36,7 +36,7 @@ const ImageUpload = ({ handleImageUpload, setImageFile }) => {
             id="dropzone-file"
             type="file"
             className="hidden"
-            onChange={(e) => handleImageUpload(e, setImageFile)}
+            onChange={(e) => handleImageUpload(e)}
           />
         </label>
       </div>

@@ -3,12 +3,13 @@ import { setImageSrc } from "@/redux/features/prediction-slice";
 import { useDispatch, useSelector } from "react-redux";
 import ImageContainer from "@/components/Image/ImageContainer";
 import { setImageFile } from "@/redux/features/file-slice";
+import ImageUpload from "@/components/Image/ImageUpload";
 
 export default function Home() {
   const dispatch = useDispatch();
   const { imageFile } = useSelector((state) => state.file);
 
-  const handleImageUpload = (event, setFile) => {
+  const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (!file) {
       console.error("No file selected");
@@ -38,7 +39,11 @@ export default function Home() {
           className="flex justify-center"
         >
           <div className="flex flex-row items-center space-y-4">
-            <ImageContainer />
+            {imageFile ? (
+              <ImageContainer />
+            ) : (
+              <ImageUpload handleImageUpload={handleImageUpload} />
+            )}
           </div>
         </div>
       </div>
