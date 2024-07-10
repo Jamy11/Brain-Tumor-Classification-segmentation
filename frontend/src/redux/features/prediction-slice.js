@@ -4,6 +4,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
   imageSrc: null,
   mainResult: "",
+  percentages: "",
   status: "idle",
   error: null,
 };
@@ -15,7 +16,7 @@ export const predictTumor = createAsyncThunk(
     formData.append("file", file);
     try {
       const response = await axiosInstance.post("/predict/", formData);
-      return response.data.prediction;
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -38,7 +39,8 @@ const predictionSlice = createSlice({
       })
       .addCase(predictTumor.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.mainResult = action.payload;
+        state.mainResult = action.payload.prediction;
+        state.percentages = action.payload.percentages;
       })
       .addCase(predictTumor.rejected, (state, action) => {
         state.status = "failed";

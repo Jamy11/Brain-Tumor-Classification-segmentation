@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { segmentImage } from "@/redux/features/segmentation-slice";
+import { predictTumor } from "@/redux/features/prediction-slice";
 
 const MyImage = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,12 @@ const MyImage = () => {
       dispatch(segmentImage(imageFile));
     }
   };
+
+  const handleClassification = () => {
+    if (imageFile) {
+      dispatch(predictTumor(imageFile));
+    }
+  };
   //  src={"https://bit.ly/dan-abramov"}
   return (
     <div className="max-w-md mx-auto p-4 border rounded-lg shadow-lg bg-white">
@@ -23,7 +30,10 @@ const MyImage = () => {
 
       {/* Action Buttons */}
       <div className="flex space-x-4 mb-4">
-        <button className="flex-1 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
+        <button
+          className="flex-1 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
+          onClick={handleClassification}
+        >
           Image Classification
         </button>
         <button
