@@ -1,0 +1,4 @@
+
+backend/myproject/media/segmentation/preprocessed_image.png
+backend/myproject/media/segmentation/predicted_mask.png
+backend/myproject/media/segmentation/postprocess_mask.png

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import LoadingSpinner from "./LoadingSpinner";
 
 const ImageClassifier = () => {
   const { mainResult, percentages, status } = useSelector(
@@ -39,7 +40,7 @@ const ImageClassifier = () => {
 
   return (
     <>
-      {status == "idle" ? <></> : status == "loading" && <>Loading</>}
+      {status == "idle" ? <></> : status == "loading" && <LoadingSpinner />}
       {status == "succeeded" && (
         <div className="p-8 max-w-screen-md mx-auto">
           {/* Title */}

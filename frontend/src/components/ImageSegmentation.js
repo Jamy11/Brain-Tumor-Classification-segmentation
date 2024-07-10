@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import LoadingSpinner from "./LoadingSpinner";
 
 const ImageSegmentation = () => {
   const segmentedImage = useSelector(
@@ -11,7 +12,7 @@ const ImageSegmentation = () => {
       {segmentationStatus == "idle" ? (
         <></>
       ) : (
-        segmentationStatus == "loading" && <>loading</>
+        segmentationStatus == "loading" && <LoadingSpinner />
       )}
 
       {segmentationStatus == "succeeded" && (
