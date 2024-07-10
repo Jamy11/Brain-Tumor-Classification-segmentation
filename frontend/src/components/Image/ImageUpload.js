@@ -2,15 +2,15 @@ import React from "react";
 
 const ImageUpload = ({ handleImageUpload, setImageFile }) => {
   return (
-    <div style={{ marginTop: "50%" }}>
-      <div className="flex items-center justify-center w-full">
+    <div className="flex items-center justify-center h-screen">
+      <div className="flex flex-col items-center justify-center w-1/2 h-1/2 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
         <label
           htmlFor="dropzone-file"
-          className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+          className="flex flex-col items-center justify-center w-full h-full"
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <svg
-              className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+              className="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

@@ -30,23 +30,24 @@ export default function Home() {
     reader.readAsDataURL(file);
   };
 
-  // console.log(imageFile);
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-      <div className="container mx-auto px-4">
-        <div
-          // style={{ flexDirection: "row !important" }}
-          className="flex justify-center"
-        >
-          <div className="flex flex-row items-center space-y-4">
-            {imageFile ? (
-              <ImageContainer />
-            ) : (
-              <ImageUpload handleImageUpload={handleImageUpload} />
-            )}
+    <>
+      {imageFile === null ? (
+        <ImageUpload handleImageUpload={handleImageUpload} />
+      ) : (
+        <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+          <div className="container mx-auto px-4">
+            <div
+              // style={{ flexDirection: "row !important" }}
+              className="flex justify-center"
+            >
+              <div className="flex flex-row items-center space-y-4">
+                <ImageContainer />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
