@@ -27,7 +27,13 @@ export const segmentImage = createAsyncThunk(
 const segmentationSlice = createSlice({
   name: "segmentation",
   initialState,
-  reducers: {},
+  reducers: {
+    resetSegmentation(state) {
+      (state.segmentedImage = null),
+        (state.status = "idle"),
+        (state.error = null);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(segmentImage.pending, (state) => {
@@ -43,5 +49,7 @@ const segmentationSlice = createSlice({
       });
   },
 });
+
+export const { resetSegmentation } = segmentationSlice.actions;
 
 export default segmentationSlice.reducer;

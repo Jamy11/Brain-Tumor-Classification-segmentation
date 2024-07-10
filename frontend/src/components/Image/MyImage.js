@@ -1,7 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { segmentImage } from "@/redux/features/segmentation-slice";
-import { predictTumor } from "@/redux/features/prediction-slice";
+import {
+  resetSegmentation,
+  segmentImage,
+} from "@/redux/features/segmentation-slice";
+import {
+  predictTumor,
+  resetPrediction,
+} from "@/redux/features/prediction-slice";
+import { resetImage } from "@/redux/features/file-slice";
 
 const MyImage = () => {
   const dispatch = useDispatch();
@@ -21,6 +28,12 @@ const MyImage = () => {
     }
   };
   //  src={"https://bit.ly/dan-abramov"}
+
+  const deleteImage = () => {
+    dispatch(resetImage());
+    dispatch(resetPrediction());
+    dispatch(resetSegmentation());
+  };
   return (
     <div className="max-w-md mx-auto p-4 border rounded-lg shadow-lg bg-white">
       {/* Image */}
@@ -46,7 +59,10 @@ const MyImage = () => {
 
       {/* Delete Button */}
       <div className="flex justify-center">
-        <button className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300">
+        <button
+          className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300"
+          onClick={deleteImage}
+        >
           Delete Image
         </button>
       </div>

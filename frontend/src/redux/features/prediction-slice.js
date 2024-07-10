@@ -27,9 +27,12 @@ const predictionSlice = createSlice({
   name: "prediction",
   initialState: initialState,
   reducers: {
-    // setImageSrc: (state, action) => {
-    //   state.imageSrc = action.payload;
-    // },
+    resetPrediction(state) {
+      (state.mainResult = ""),
+        (state.percentages = ""),
+        (state.status = "idle"),
+        (state.error = null);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -48,6 +51,6 @@ const predictionSlice = createSlice({
   },
 });
 
-export const { setImageSrc } = predictionSlice.actions;
+export const { resetPrediction } = predictionSlice.actions;
 
 export default predictionSlice.reducer;
