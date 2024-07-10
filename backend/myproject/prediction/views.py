@@ -41,6 +41,7 @@ class ImageUploadView(APIView):
 
         # Make prediction
         prediction = model.predict(img)
+        print(prediction)
         predicted_class = class_names[np.argmax(prediction)]
 
         return JsonResponse({'prediction': predicted_class})

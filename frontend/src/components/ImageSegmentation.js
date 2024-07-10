@@ -6,7 +6,6 @@ const ImageSegmentation = () => {
     (state) => state.segmentation.segmentedImage
   );
   const segmentationStatus = useSelector((state) => state.segmentation.status);
-  console.log(segmentationStatus);
   return (
     <>
       {segmentationStatus == "idle" ? (
