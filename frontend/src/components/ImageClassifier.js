@@ -40,6 +40,7 @@ const ImageClassifier = () => {
 
   return (
     <>
+      {/* <LoadingSpinner /> */}
       {status == "idle" ? <></> : status == "loading" && <LoadingSpinner />}
       {status == "succeeded" && (
         <div className="p-8 max-w-screen-md mx-auto">
@@ -52,7 +53,14 @@ const ImageClassifier = () => {
           <div className="space-y-6">
             {progressData.map((item, index) => (
               <div key={index} className="w-full">
-                <p className="mb-2 text-lg text-gray-700">{item.label}</p>
+                <p className="mb-2 text-lg text-gray-700">{item.label}</p>{" "}
+                {progressValues[index] !== undefined
+                  ? progressValues[index] < 1
+                    ? (progressValues[index] * 100).toFixed(2)
+                    : progressValues[index].toFixed(2)
+                  : "0.00"}
+                {"%"}
+                {/* {progressValues[index]} */}
                 <div className="relative h-2 rounded-full bg-gray-300 overflow-hidden">
                   <div
                     className={`absolute left-0 top-0 h-full ${item.color} rounded-full transition-all ease-out duration-1000`}
