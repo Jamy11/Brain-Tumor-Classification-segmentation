@@ -55,7 +55,7 @@ const ImageClassifier = () => {
               <div key={index} className="w-full">
                 <p className="mb-2 text-lg text-gray-700">{item.label}</p>{" "}
                 {progressValues[index] !== undefined
-                  ? progressValues[index] < 1
+                  ? progressValues[index] < 0.01
                     ? (progressValues[index] * 100).toFixed(2)
                     : progressValues[index].toFixed(2)
                   : "0.00"}
