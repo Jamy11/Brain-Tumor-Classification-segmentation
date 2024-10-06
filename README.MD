@@ -1,14 +1,14 @@
-# **Brain Tumor Detection Web Application**
+# **Brain Tumor Detection, Classification & Segmentation Using Machine Learning Algorithms**
 
 This project is a web-based application for brain tumor detection using machine learning. The backend is powered by Django REST API with a brain tumor classification model, and the frontend is built using Next.js.
 
 ## **Features**
 
-- **Image Classification**
+- **Image Classification:**
   Users can upload MRI images to classify brain tumors into one of four categories: Glioma, Meningioma, No Tumor, and Pituitary.
-- **Image Segmentation**
+- **Image Segmentation:**
   Provides segmented images to identify the tumor location.
-- **Real-time Predictions**
+- **Real-time Predictions:**
   Get prediction results with percentages for each class.
 
 ## **Technologies Used**
